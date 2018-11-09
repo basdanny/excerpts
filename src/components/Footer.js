@@ -7,7 +7,7 @@ export default class Header extends Component {
             <footer className="footer">
                 <div className="container">
                     <div className="float-right">
-                        <a href="#"><i class="fas fa-chevron-up"></i></a>
+                        <a href="#"><i className="fas fa-chevron-up"></i></a>
                     </div>
                     <div>© excerpts</div>
                 </div>

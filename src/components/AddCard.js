@@ -12,7 +12,7 @@ export default class AddCard extends Component {
 
     clickFunnyExcerpt = event => {
         event.preventDefault();
-        axios.get('http://api.icndb.com/jokes/random')
+        axios.get('https://api.icndb.com/jokes/random')
             .then(
                 (response) => { this.setState({ title: 'Norris Joke ' + response.data.value.id, text: response.data.value.joke }) },
                	(error) => { console.log(error) }
@@ -35,7 +35,7 @@ export default class AddCard extends Component {
                                     </div>
                                     <div className="col-2">
                                         <button type="submit" className="btn btn-outline-dark mb-2">Add excerpt</button>
-                                        <button onClick={this.clickFunnyExcerpt} className="btn btn-outline-dark mb-2 ml-1"><i class="far fa-smile-wink"></i></button>
+                                        <button onClick={this.clickFunnyExcerpt} className="btn btn-outline-dark mb-2 ml-1"><i className="far fa-smile-wink"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -44,7 +44,7 @@ export default class AddCard extends Component {
                     <div className="col-1">
                         <div className="float-right">
                             <button className="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseAddExcerpt" aria-expanded="false" aria-controls="collapseAddExcerpt">
-                                <i class="far fa-edit"></i>
+                                <i className="far fa-edit"></i>
                             </button>
                         </div>
                     </div>

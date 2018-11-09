@@ -10,10 +10,8 @@ class App extends Component {
   
   state = {
     cards: [
-      { title: '', text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum' },
-      { title: 'title B', text: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia ' },
-      { title: 'http://google.com', text: '' },
-      { title: 'title F', text: 'Phasellus quis sem ullamcorper risus ornare malesuada. Fusce nunc massa, fermentum id ex nec' },
+      { title: 'Ooops! Something got wrong.', text: 'Stub. Appears when API not available' },      
+      { title: 'http://google.com', text: '' },      
     ]
   };
 
@@ -21,11 +19,11 @@ class App extends Component {
     super(props);
 
     //init state
-    axios.get('http://api.icndb.com/jokes/random/12')
+    axios.get('https://api.icndb.com/jokes/random/12')
             .then(
                 (response) => {
                   let randomCards = response.data.value.map(joke => (
-                    {id: joke.id, title: 'Norris Joke '+joke.id, text: joke.joke }
+                    {id: ''+joke.id, title: 'Norris Joke '+joke.id, text: joke.joke }
                   ));                                    
                   this.setState({ cards: randomCards });
                 },
