@@ -1,56 +1,58 @@
 import React, { Component } from 'react';
 import './App.css';
 import Header from './Header';
-import AddCard from './AddCard'
+import AddCard from './AddCard';
 import CardList from './CardList';
 import Footer from './Footer';
-import axios from 'axios'
+import axios from 'axios';
 
 class App extends Component {
-  
-  state = {
-    cards: [
-      { title: 'Ooops! Something got wrong.', text: 'Stub. Appears when API not available' },      
-      { title: 'http://google.com', text: '' },      
-    ]
-  };
-
   constructor(props) {
     super(props);
 
-    //init state
-    axios.get('https://api.icndb.com/jokes/random/12')
-            .then(
-                (response) => {
-                  let randomCards = response.data.value.map(joke => (
-                    {id: ''+joke.id, title: 'Norris Joke '+joke.id, text: joke.joke }
-                  ));                                    
-                  this.setState({ cards: randomCards });
-                },
-               	(error) => { console.log(error) }
-            );
+    this.state = { /* fallback state */
+      cards: [{ id: '0', title: 'Ooops! Something got wrong.', text: 'Stub. Appears when API not available' }]
+    };
+
+    this.addNewCard = this.addNewCard.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
   }
 
-  addNewCard = cardInfo => {
+  componentDidMount() {
+    //init state
+    axios.get('https://api.icndb.com/jokes/random/3')
+      .then(
+        (response) => {
+          let randomCards = response.data.value.map(joke => (
+            { id: '' + joke.id, title: 'Norris Joke ' + joke.id, text: joke.joke }
+          ));
+          this.setState({ cards: randomCards });
+        },
+        (error) => { console.log(error); }
+      );
+  }
+
+  addNewCard(cardInfo) {
     cardInfo.id = Math.random().toString(36).substr(2, 9);
     this.setState(prevState => {
       return { cards: [].concat(cardInfo, prevState.cards) };
     });
-  };
+  }
 
-  deleteCard = id => {    
+  deleteCard(id) {
     this.setState(prevState => {
       return { cards: prevState.cards.filter(elm => elm.id !== id) };
     });
-  };
+  }
 
   render() {
-    return ([      
-        <Header></Header>,
-        <AddCard onSubmit={this.addNewCard}></AddCard>,
-        <main role="main" className="container pt-4"><CardList deleteCard={this.deleteCard} cards={this.state.cards}></CardList></main>,
-        <Footer></Footer>
-    ]
+    return (
+      <div>
+        <Header />
+        <AddCard onSubmit={this.addNewCard} />
+        <main role="main" className="container pt-4"><CardList deleteCard={this.deleteCard} cards={this.state.cards} /></main>
+        <Footer />
+      </div>
     );
   }
 }
